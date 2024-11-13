@@ -8,6 +8,9 @@ import PublicLayout from "./components/layout/PublicLayout";
 import ResultPage from "./pages/ResultPage";
 import LeaderBoardPage from "./pages/LeaderBoardPage";
 import PrivateLayout from "./components/layout/PrivateLayout";
+import DashboardPage from "./pages/DashboardPage";
+import CreateQuizSetPage from "./pages/CreateQuizSetPage";
+import QuizEntryPage from "./pages/QuizEntryPage";
 
 const App = () => {
   return (
@@ -25,6 +28,10 @@ const App = () => {
           <Route path="/result/:id" element={<ResultPage />} />
           <Route path="/leaderboard/:id" element={<LeaderBoardPage />} />
         </Route>
+
+        <Route path="/admin/dashboard" element={<DashboardPage />} />
+        <Route path="/admin/quizset" element={<CreateQuizSetPage />} />
+        <Route path="/admin/quizentry" element={<QuizEntryPage />} />
       </Routes>
     </UserProvider>
   );
