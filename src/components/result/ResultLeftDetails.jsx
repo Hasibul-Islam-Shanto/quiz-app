@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { calculateScores } from "../../services/helper";
 import circularbar from "../../assets/icons/circular-progressbar.svg";
+import { Link } from "react-router-dom";
 
 const ResultLeftDetails = ({ quiz, correctAnswers, submittedAnswers }) => {
   const { correctCount, wrongCount, totalMarks } = calculateScores(
@@ -41,12 +42,12 @@ const ResultLeftDetails = ({ quiz, correctAnswers, submittedAnswers }) => {
                   </div>
                 </div>
 
-                <a
-                  href="./leaderboard_page.html"
+                <Link
+                  to={`/leaderboard/${quiz?.id}`}
                   className=" bg-secondary py-3 rounded-md hover:bg-secondary/90 transition-colors text-lg font-medium underline text-white"
                 >
                   View Leaderboard
-                </a>
+                </Link>
               </div>
 
               <div className="w-1/2 bg-primary/80 rounded-md border border-white/20 flex items-center p-4">

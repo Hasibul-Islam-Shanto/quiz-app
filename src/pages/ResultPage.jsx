@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import logowhite from "../assets/logo-white.svg";
 import ResultLeftDetails from "../components/result/ResultLeftDetails";
 import ResultRightDetails from "../components/result/ResultRightDetails";
@@ -12,17 +12,10 @@ const ResultPage = () => {
   const { id } = useParams();
   const { user } = useContext(UserContext);
 
-  const {
-    data: attemptsList,
-    isLoading: isGettingAttempList,
-    isError: isGettingAttempListError,
-  } = useGetAttemptsList(id);
+  const { data: attemptsList, isLoading: isGettingAttempList } =
+    useGetAttemptsList(id);
 
-  const {
-    data: quizDetails,
-    isLoading: isGettingQuizDetails,
-    isError: isGettingQuizDetailsError,
-  } = useGetQuiz(id);
+  const { data: quizDetails, isLoading: isGettingQuizDetails } = useGetQuiz(id);
 
   const loggedInUserAttempt = useMemo(() => {
     const attempt =
@@ -36,10 +29,6 @@ const ResultPage = () => {
   if (isGettingAttempList || isGettingQuizDetails) {
     return <Loader />;
   }
-
-  // if (isGettingAttempListError || isGettingQuizDetailsError) {
-  //   return <Navigate to={"/"} />;
-  // }
 
   return (
     <>

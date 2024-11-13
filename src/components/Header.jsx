@@ -9,7 +9,9 @@ const Header = () => {
   const { user } = useContext(UserContext);
   return (
     <header className="flex justify-between items-center mb-12">
-      <img src={logo} alt="website-logo" className="h-7" />
+      <Link to="/">
+        <img src={logo} alt="website-logo" className="h-7" />
+      </Link>
 
       <div className="font-jaro">
         {!user ? (
