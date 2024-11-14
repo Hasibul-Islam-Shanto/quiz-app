@@ -9,12 +9,13 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "all",
   });
 
-  const { mutate: signin } = useSignIn();
+  const { mutate: signin } = useSignIn(watch("role") === "admin" && true);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -89,8 +90,9 @@ const LoginPage = () => {
 
               <div className="mb-6 flex gap-2 items-center">
                 <input
+                  {...register("role")}
                   type="checkbox"
-                  id="admin"
+                  value="admin"
                   className="px-4 py-3 rounded-lg border border-gray-300"
                 />
                 <label className="block ">Login as Admin</label>

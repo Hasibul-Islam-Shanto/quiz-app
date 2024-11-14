@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import logoWhite from "../../assets/logo-white.svg";
 import userAvater from "../../assets/user_avatar.png";
+import { useContext } from "react";
+import { UserContext } from "../../context";
+import useLogout from "../../hooks/useLogout";
 
 const Sidebar = () => {
+  const { user } = useContext(UserContext);
+  const { handleLogout } = useLogout();
   return (
     <>
       <aside className="w-64 bg-primary p-6 flex flex-col">
@@ -48,12 +53,12 @@ const Sidebar = () => {
             </li>
 
             <li>
-              <Link
-                to={"#"}
-                className="block py-2 px-4 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-primary"
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left py-2 px-4 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-primary"
               >
                 Logout
-              </Link>
+              </button>
             </li>
           </ul>
         </nav>
@@ -63,7 +68,7 @@ const Sidebar = () => {
             alt="Mr Hasan"
             className="w-10 h-10 rounded-full mr-3 object-cover"
           />
-          <span className="text-white font-semibold">Saad Hasan</span>
+          <span className="text-white font-semibold">{user.full_name}</span>
         </div>
       </aside>
     </>

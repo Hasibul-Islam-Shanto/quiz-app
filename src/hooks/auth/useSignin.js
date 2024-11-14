@@ -9,7 +9,7 @@ const signIn = async (data) => {
   return response.data;
 };
 
-const useSignIn = () => {
+const useSignIn = (isAdmin) => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
@@ -20,13 +20,18 @@ const useSignIn = () => {
       console.log(error);
     },
     onSuccess: (data) => {
+      console.log("🚀 ~ useSignIn ~ data:", data);
       window.localStorage.setItem(
         "accessToken",
         data?.data?.tokens?.accessToken
       );
       window.localStorage.setItem("userInfo", JSON.stringify(data?.data?.user));
       setUser(data?.data?.user);
-      navigate("/");
+      if (isAdmin && data?.data?.user?.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     },
   });
 };

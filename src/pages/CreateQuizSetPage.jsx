@@ -1,8 +1,24 @@
 import { Link } from "react-router-dom";
 import leftArrowSvg from "../assets/leftArrow.svg";
-import Sidebar from "../components/Admin/Sidebar";
+import Sidebar from "../components/admin-panel/Sidebar";
+import { useForm } from "react-hook-form";
+import InputField from "../components/ui/input";
+import useCreateQuizset from "../hooks/admin/useCreateQuizset";
 
 const CreateQuizSetPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+  });
+
+  const { mutate: createQuizset } = useCreateQuizset();
+
+  const onSubmit = (data) => {
+    createQuizset(data);
+  };
   return (
     <>
       <div className="bg-[#F5F3FF] min-h-screen flex">
@@ -24,40 +40,35 @@ const CreateQuizSetPage = () => {
                 Give your quiz title and description
               </h2>
 
-              <form>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Quiz title
-                  </label>
-                  <input
-                    type="text"
-                    id="quiz-title"
-                    name="quiz-title"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-buzzr-purple focus:border-buzzr-purple"
-                    placeholder="Quiz"
-                  />
-                </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <InputField
+                  {...register("title", {
+                    required: "Quiz title is required.",
+                  })}
+                  label="Quiz title"
+                  type="text"
+                  placeholder="Quiz"
+                  errorMessage={errors?.title?.message}
+                />
 
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Description (Optional)
                   </label>
                   <textarea
-                    id="quiz-description"
-                    name="quiz-description"
+                    {...register("description")}
                     rows="4"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-buzzr-purple focus:border-buzzr-purple"
                     placeholder="Description"
-                  ></textarea>
+                  />
                 </div>
 
-                <a
-                  href="./quiz_set_entry_page.html"
+                <button
                   type="submit"
                   className="w-full block text-center bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 >
                   Next
-                </a>
+                </button>
               </form>
             </div>
           </div>

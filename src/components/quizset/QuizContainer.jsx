@@ -3,7 +3,12 @@ import Loader from "../ui/Loader";
 import QuizsetLists from "./QuizsetLists";
 
 const QuizContainer = () => {
-  const { data: quizsetList, isLoading, isError, error } = useGetQuizset();
+  const {
+    data: quizsetList,
+    isLoading,
+    isError,
+    error,
+  } = useGetQuizset("/quizzes");
 
   let content;
 

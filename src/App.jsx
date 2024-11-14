@@ -31,7 +31,7 @@ const App = () => {
 
         <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/quizset" element={<CreateQuizSetPage />} />
-        <Route path="/admin/quizentry" element={<QuizEntryPage />} />
+        <Route path="/admin/quizentry/:id" element={<QuizEntryPage />} />
       </Routes>
     </UserProvider>
   );

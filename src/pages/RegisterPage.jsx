@@ -20,12 +20,19 @@ const RegisterPage = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    const submittedData = {
+
+    const submittedDataForUser = {
       full_name: data.full_name,
       email: data.email,
       password: data.password,
     };
-    signup(submittedData);
+    const submittedDataForAdmin = {
+      full_name: data.full_name,
+      email: data.email,
+      password: data.password,
+      role: data.role,
+    };
+    signup(data.role ? submittedDataForAdmin : submittedDataForUser);
   };
 
   return (
@@ -133,8 +140,9 @@ const RegisterPage = () => {
 
               <div className="mb-6 flex gap-2 items-center">
                 <input
+                  {...register("role")}
                   type="checkbox"
-                  id="admin"
+                  value="admin"
                   className="px-4 py-3 rounded-lg border border-gray-300"
                 />
                 <label className="block">Register as Admin</label>

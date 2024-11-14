@@ -1,8 +1,16 @@
 import plusSvg from "../assets/plus.svg";
 import boxSvg from "../assets/box.svg";
-import Sidebar from "../components/Admin/Sidebar";
+import Sidebar from "../components/admin-panel/Sidebar";
+import { Link } from "react-router-dom";
+import useGetQuizset from "../hooks/quiz/useGetQuizset";
+import Loader from "../components/ui/Loader";
 
 const DashboardPage = () => {
+  const { data: quizset, isLoading } = useGetQuizset("/admin/quizzes");
+
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <div className="bg-gray-100 min-h-screen flex">
@@ -17,7 +25,7 @@ const DashboardPage = () => {
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a href="./quiz_set_page.html" className="group">
+            <Link to="/admin/quizset" className="group">
               <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 ">
                 <div className="text-buzzr-purple mb-4 group-hover:scale-105 transition-all">
                   <img src={plusSvg} alt="plus" className="h-8 w-8" />
@@ -29,19 +37,27 @@ const DashboardPage = () => {
                   Build from the ground up
                 </p>
               </div>
-            </a>
+            </Link>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 group cursor-pointer">
-              <div className="text-buzzr-purple mb-4 group-hover:scale-105 transition-all">
-                <img src={boxSvg} alt="box" className="h-8 w-8" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2 group-hover:scale-105 transition-all">
-                JavaScript Basics Quiz
-              </h3>
-              <p className="text-gray-600 text-sm group-hover:scale-105 transition-all">
-                Test knowledge of core JavaScript
-              </p>
-            </div>
+            {quizset &&
+              quizset.length > 0 &&
+              quizset.map((item) => (
+                <Link
+                  to={`/admin/quizentry/${item.id}`}
+                  key={item.id}
+                  className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 group cursor-pointer"
+                >
+                  <div className="text-buzzr-purple mb-4 group-hover:scale-105 transition-all">
+                    <img src={boxSvg} alt="box" className="h-8 w-8" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2 group-hover:scale-105 transition-all">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm group-hover:scale-105 transition-all">
+                    {item.description}
+                  </p>
+                </Link>
+              ))}
           </div>
         </main>
       </div>

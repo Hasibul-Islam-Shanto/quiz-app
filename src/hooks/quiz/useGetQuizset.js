@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../../services/axios.config";
-const getQuizset = async () => {
+const getQuizset = async (url) => {
   try {
-    const response = await axios.get("/quizzes");
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     console.log("Error on getting quiz sets - ", error);
     throw new Error(error);
   }
 };
-const useGetQuizset = () => {
+const useGetQuizset = (url) => {
   return useQuery({
-    queryKey: ["getQuizset"],
-    queryFn: () => getQuizset(),
+    queryKey: ["getQuizset", url],
+    queryFn: () => getQuizset(url),
   });
 };
 
