@@ -2,9 +2,15 @@ import { useFormContext } from "react-hook-form";
 import OptionField from "./Option";
 import { useParams } from "react-router-dom";
 import useAddQuizQuestion from "../../hooks/admin/useAddQuizQuestion";
+import useUpdateQuizQuestion from "../../hooks/admin/useUpdateQuizQuestion";
 
 /* eslint-disable react/prop-types */
-const QuizEntryQuestionInput = ({ singleQuizset }) => {
+const QuizEntryQuestionInput = ({
+  singleQuizset,
+  isEditTriggered,
+  setIsEditTriggered,
+  selectedId,
+}) => {
   const { id } = useParams();
   const {
     register,
@@ -17,6 +23,7 @@ const QuizEntryQuestionInput = ({ singleQuizset }) => {
   } = useFormContext();
   console.log(errors);
   const { mutate: addQuizQuestion } = useAddQuizQuestion();
+  const { mutate: updateQuizQuestion } = useUpdateQuizQuestion();
 
   const handleAnswer = (event) => {
     const { value } = event.target;
@@ -25,13 +32,25 @@ const QuizEntryQuestionInput = ({ singleQuizset }) => {
   };
 
   const onSubmit = (data) => {
-    const submittedData = {
-      id,
-      question: data.question,
-      options: [data.option1, data.option2, data.option3, data.option4],
-      correctAnswer: data.correctAnswer,
-    };
-    addQuizQuestion(submittedData);
+    if (isEditTriggered) {
+      const submittedData = {
+        id: selectedId,
+        question: data.question,
+        options: [data.option1, data.option2, data.option3, data.option4],
+        correctAnswer: data.correctAnswer,
+      };
+      updateQuizQuestion(submittedData);
+      setIsEditTriggered(false);
+    } else {
+      const submittedData = {
+        id,
+        question: data.question,
+        options: [data.option1, data.option2, data.option3, data.option4],
+        correctAnswer: data.correctAnswer,
+      };
+      addQuizQuestion(submittedData);
+    }
+
     reset();
   };
 
@@ -120,7 +139,7 @@ const QuizEntryQuestionInput = ({ singleQuizset }) => {
               type="submit"
               className="w-full bg-white border-[1px] border-gray-400 text-black text-primary-foreground p-2 rounded-md hover:bg-green-100 transition-colors"
             >
-              Add Question
+              {isEditTriggered ? "Update Question" : " Add Question"}
             </button>
             <button
               type="button"

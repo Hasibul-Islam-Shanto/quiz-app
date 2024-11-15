@@ -1,5 +1,27 @@
 /* eslint-disable react/prop-types */
-const QuizEntryQuestions = ({ questions }) => {
+
+import { useFormContext } from "react-hook-form";
+import useDeleteQuestion from "../../hooks/admin/useDeleteQuestion";
+import Spinner from "../ui/Spinner";
+
+const QuizEntryQuestions = ({
+  questions,
+  setIsEditTriggered,
+  setSelectedId,
+}) => {
+  console.log("🚀 ~ QuizEntryQuestions ~ questions:", questions);
+  const { setValue, reset } = useFormContext();
+  const { mutate: deleteQuestion, isPending } = useDeleteQuestion();
+
+  const handleEditQuestion = (id) => {
+    const selectedItem = questions.find((item) => item.id === id);
+    setValue("question", selectedItem.question);
+    selectedItem.options.map((item, index) => {
+      return setValue(`option${index + 1}`, item);
+    });
+    setValue("correctAnswer", selectedItem.correctAnswer);
+    console.log("🚀 ~ handleEditQuestion ~ selectedQuestion:", selectedItem);
+  };
   return (
     <>
       <div className="px-4">
@@ -32,10 +54,24 @@ const QuizEntryQuestions = ({ questions }) => {
                 </div>
               </div>
               <div className="flex space-x-4 bg-primary/10 px-6 py-2">
-                <button className="text-red-600 hover:text-red-800 font-medium">
-                  Delete
+                <button
+                  disabled={isPending}
+                  onClick={() => {
+                    deleteQuestion(item.id);
+                    reset();
+                  }}
+                  className="text-red-600 hover:text-red-800 font-medium flex"
+                >
+                  {isPending ? <Spinner /> : "Delete"}
                 </button>
-                <button className="text-primary hover:text-primary/80 font-medium">
+                <button
+                  onClick={() => {
+                    handleEditQuestion(item.id);
+                    setIsEditTriggered(true);
+                    setSelectedId(item.id);
+                  }}
+                  className="text-primary hover:text-primary/80 font-medium"
+                >
                   Edit Question
                 </button>
               </div>

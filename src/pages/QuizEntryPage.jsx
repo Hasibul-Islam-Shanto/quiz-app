@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "../components/admin-panel/Sidebar";
 import useGetQuizset from "../hooks/quiz/useGetQuizset";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Loader from "../components/ui/Loader";
 import QuizEntryQuestionInput from "../components/admin-panel/QuizEntryQuestionInput";
 import { FormProvider, useForm } from "react-hook-form";
@@ -9,6 +9,8 @@ import QuizEntryQuestions from "../components/admin-panel/QuizEntryQuestions";
 
 const QuizEntryPage = () => {
   const { id } = useParams();
+  const [isEditTriggered, setIsEditTriggered] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const methods = useForm({ mode: "all" });
 
   const { data: quizset, isLoading } = useGetQuizset("/admin/quizzes");
@@ -63,9 +65,16 @@ const QuizEntryPage = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-12">
               <FormProvider {...methods}>
-                <QuizEntryQuestionInput singleQuizset={singleQuizset} />
+                <QuizEntryQuestionInput
+                  singleQuizset={singleQuizset}
+                  setIsEditTriggered={setIsEditTriggered}
+                  isEditTriggered={isEditTriggered}
+                  selectedId={selectedId}
+                />
                 <QuizEntryQuestions
                   questions={singleQuizset?.Questions ?? []}
+                  setIsEditTriggered={setIsEditTriggered}
+                  setSelectedId={setSelectedId}
                 />
               </FormProvider>
             </div>

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { forwardRef } from "react";
+import { useFormContext } from "react-hook-form";
 
 const InputWithForwardRef = (
   {
@@ -13,6 +14,7 @@ const InputWithForwardRef = (
   },
   ref
 ) => {
+  const { watch } = useFormContext();
   return (
     <div>
       {errorMessage && (
@@ -22,6 +24,9 @@ const InputWithForwardRef = (
         <input
           type="checkbox"
           value={value}
+          checked={
+            value && watch("correctAnswer") && value === watch("correctAnswer")
+          }
           onChange={handleAnswer}
           className="text-primary focus:ring-0 w-4 h-4"
         />
