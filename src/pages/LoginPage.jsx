@@ -4,6 +4,7 @@ import logo from "../assets/logo.svg";
 import InputField from "../components/ui/input";
 import { useForm } from "react-hook-form";
 import useSignIn from "../hooks/auth/useSignin";
+import logowhite from "../assets/logo-white.svg";
 
 const LoginPage = () => {
   const {
@@ -26,6 +27,9 @@ const LoginPage = () => {
       <div className="flex min-h-screen">
         <div className="hidden lg:flex lg:w-1/2 bg-primary flex-col justify-between p-12 relative">
           <div className="text-white">
+            <Link to="/">
+              <img src={logowhite} alt="register-image" className="h-8" />
+            </Link>
             <img src={leftSideImage} alt="login-image" className="mx-auto" />
 
             <h2 className="text-3xl font-bold mb-4">Sign in Now</h2>

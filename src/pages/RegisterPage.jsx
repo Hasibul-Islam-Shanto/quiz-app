@@ -40,7 +40,9 @@ const RegisterPage = () => {
       <div className="flex min-h-screen max-h-screen">
         <div className="hidden  lg:flex lg:w-1/2 bg-primary flex-col justify-between p-12  h-full fixed left-0 top-0">
           <div className="text-white">
-            <img src={logowhite} alt="register-image" className="h-8" />
+            <Link to="/">
+              <img src={logowhite} alt="register-image" className="h-8" />
+            </Link>
 
             <img
               src={leftSideImage}

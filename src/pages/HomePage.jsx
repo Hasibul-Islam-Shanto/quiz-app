@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { UserContext } from "../context";
 import Welcome from "../components/Welcome";
 import QuizContainer from "../components/quizset/QuizContainer";
@@ -13,7 +14,7 @@ const HomePage = () => {
         <Header />
         {user && <Welcome userName={user?.full_name} />}
         <QuizContainer />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </>
   );

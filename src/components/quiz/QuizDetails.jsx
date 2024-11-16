@@ -3,8 +3,12 @@ import { useContext } from "react";
 import { UserContext } from "../../context";
 import userAvater from "../../assets/user_avatar.png";
 
-const QuizDetails = ({ quiz }) => {
+const QuizDetails = ({ quiz, answers }) => {
   const { user } = useContext(UserContext);
+  const participation = (answers && Object.keys(answers).length) || 0;
+  const remaining =
+    parseInt(quiz?.stats?.total_questions) - parseInt(participation) ||
+    quiz?.stats?.total_questions;
   return (
     <>
       <div className="lg:col-span-1 bg-white rounded-md p-6 h-full flex flex-col">
@@ -17,13 +21,13 @@ const QuizDetails = ({ quiz }) => {
               Total number of questions : {quiz?.stats?.total_questions}
             </div>
 
-            {/* <div className="w-fit bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full inline-block mb-2">
-              Participation : 1
+            <div className="w-fit bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-full inline-block mb-2">
+              Participation : {participation}
             </div>
 
             <div className="w-fit bg-gray-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded-full inline-block mb-2">
-              Remaining : 9
-            </div> */}
+              Remaining : {remaining}
+            </div>
           </div>
         </div>
 

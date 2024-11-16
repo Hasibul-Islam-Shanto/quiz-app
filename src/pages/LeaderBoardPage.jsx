@@ -66,7 +66,9 @@ const LeaderBoardPage = () => {
   return (
     <>
       <div className="bg-[#F5F3FF]  p-4">
-        <Header />
+        <div className="px-12">
+          <Header />
+        </div>
 
         <main className="min-h-[calc(100vh-50px)] flex items-center justify-center">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl overflow-hidden">

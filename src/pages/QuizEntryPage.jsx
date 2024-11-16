@@ -24,6 +24,7 @@ const QuizEntryPage = () => {
     }
   }, [id, quizset]);
 
+  console.log(singleQuizset);
   if (isLoading) {
     return <Loader />;
   }
@@ -65,12 +66,15 @@ const QuizEntryPage = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-12">
               <FormProvider {...methods}>
-                <QuizEntryQuestionInput
-                  singleQuizset={singleQuizset}
-                  setIsEditTriggered={setIsEditTriggered}
-                  isEditTriggered={isEditTriggered}
-                  selectedId={selectedId}
-                />
+                {singleQuizset.status !== "published" && (
+                  <QuizEntryQuestionInput
+                    singleQuizset={singleQuizset}
+                    setIsEditTriggered={setIsEditTriggered}
+                    isEditTriggered={isEditTriggered}
+                    selectedId={selectedId}
+                  />
+                )}
+
                 <QuizEntryQuestions
                   questions={singleQuizset?.Questions ?? []}
                   setIsEditTriggered={setIsEditTriggered}

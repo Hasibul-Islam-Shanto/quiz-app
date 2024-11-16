@@ -3,6 +3,7 @@ import OptionField from "./Option";
 import { useParams } from "react-router-dom";
 import useAddQuizQuestion from "../../hooks/admin/useAddQuizQuestion";
 import useUpdateQuizQuestion from "../../hooks/admin/useUpdateQuizQuestion";
+import useUpdateQuizset from "../../hooks/admin/useUpdateQuizset";
 
 /* eslint-disable react/prop-types */
 const QuizEntryQuestionInput = ({
@@ -21,9 +22,10 @@ const QuizEntryQuestionInput = ({
     setError,
     formState: { errors },
   } = useFormContext();
-  console.log(errors);
+
   const { mutate: addQuizQuestion } = useAddQuizQuestion();
   const { mutate: updateQuizQuestion } = useUpdateQuizQuestion();
+  const { mutate: publishQuizset } = useUpdateQuizset();
 
   const handleAnswer = (event) => {
     const { value } = event.target;
@@ -54,6 +56,12 @@ const QuizEntryQuestionInput = ({
     reset();
   };
 
+  const handlePublishQuiz = () => {
+    publishQuizset({
+      id,
+      status: "published",
+    });
+  };
   return (
     <>
       <div className="">
@@ -143,6 +151,7 @@ const QuizEntryQuestionInput = ({
             </button>
             <button
               type="button"
+              onClick={handlePublishQuiz}
               className="w-full bg-primary text-white text-primary-foreground p-2 rounded-md hover:bg-primary/90 transition-colors"
             >
               Save Quiz

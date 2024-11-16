@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import useSubmitQuizAnswer from "../../hooks/quiz/useSubmitQuizAnswer";
 
-const QuizQuestion = ({ quiz }) => {
+const QuizQuestion = ({ quiz, answers, setAnswers }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
+
   const questions = quiz?.questions;
   const { mutate: submitQuizAnswer } = useSubmitQuizAnswer(quiz?.id);
 
@@ -39,6 +39,30 @@ const QuizQuestion = ({ quiz }) => {
     submitQuizAnswer(submittedData);
   };
 
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const shuffledOptions = useMemo(() => {
+    return questions.map((question) => ({
+      questionId: question.id,
+      options: shuffleArray(question.options),
+    }));
+  }, [questions]);
+
+  const getCurrentShuffledOptions = useCallback(() => {
+    return (
+      shuffledOptions.find(
+        (q) => q.questionId === questions[currentQuestionIndex].id
+      )?.options || []
+    );
+  }, [shuffledOptions, currentQuestionIndex, questions]);
+
   return (
     <>
       <div className="lg:col-span-2 bg-white">
@@ -49,7 +73,7 @@ const QuizQuestion = ({ quiz }) => {
             </h3>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {currentQuestion.options.map((item, index) => (
+            {getCurrentShuffledOptions().map((item, index) => (
               <label
                 key={index}
                 className="flex items-center space-x-3 py-3 px-4 bg-primary/5 rounded-md text-lg"
