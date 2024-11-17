@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { calculateScores } from "../../services/helper";
-import circularbar from "../../assets/icons/circular-progressbar.svg";
 import { Link } from "react-router-dom";
+import PercentageChart from "../ui/PercentageChart";
 
 const ResultLeftDetails = ({ quiz, correctAnswers, submittedAnswers }) => {
   const { correctCount, wrongCount, totalMarks } = calculateScores(
@@ -58,7 +58,10 @@ const ResultLeftDetails = ({ quiz, correctAnswers, submittedAnswers }) => {
                   <p>Your Mark</p>
                 </div>
                 <div>
-                  <img src={circularbar} className="h-20" />
+                  <PercentageChart
+                    marks={totalMarks}
+                    totalMarks={quiz?.stats?.total_marks}
+                  />
                 </div>
               </div>
             </div>

@@ -24,6 +24,14 @@ const processQueue = (error, token = null) => {
   failedQueue = [];
 };
 
+const isLoginRegisterRequest = (config) => {
+  return (
+    config.url.endsWith("/auth/login") ||
+    config.url.endsWith("/auth/register") ||
+    config.url.includes("/auth/login") ||
+    config.url.includes("/auth/register")
+  );
+};
 axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -41,7 +49,9 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
+    if (isLoginRegisterRequest(originalRequest)) {
+      return Promise.reject(error);
+    }
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {

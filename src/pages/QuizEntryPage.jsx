@@ -6,6 +6,7 @@ import Loader from "../components/ui/Loader";
 import QuizEntryQuestionInput from "../components/admin-panel/QuizEntryQuestionInput";
 import { FormProvider, useForm } from "react-hook-form";
 import QuizEntryQuestions from "../components/admin-panel/QuizEntryQuestions";
+import AttemptUser from "../components/admin-panel/AttemptUser";
 
 const QuizEntryPage = () => {
   const { id } = useParams();
@@ -80,6 +81,7 @@ const QuizEntryPage = () => {
                   setIsEditTriggered={setIsEditTriggered}
                   setSelectedId={setSelectedId}
                 />
+                {singleQuizset?.status === "published" && <AttemptUser />}
               </FormProvider>
             </div>
           </div>

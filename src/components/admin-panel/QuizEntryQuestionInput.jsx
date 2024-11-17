@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import useAddQuizQuestion from "../../hooks/admin/useAddQuizQuestion";
 import useUpdateQuizQuestion from "../../hooks/admin/useUpdateQuizQuestion";
 import useUpdateQuizset from "../../hooks/admin/useUpdateQuizset";
+import ToolTip from "../ui/Tooltip";
 
 /* eslint-disable react/prop-types */
 const QuizEntryQuestionInput = ({
@@ -149,13 +150,42 @@ const QuizEntryQuestionInput = ({
             >
               {isEditTriggered ? "Update Question" : " Add Question"}
             </button>
-            <button
-              type="button"
-              onClick={handlePublishQuiz}
-              className="w-full bg-primary text-white text-primary-foreground p-2 rounded-md hover:bg-primary/90 transition-colors"
-            >
-              Save Quiz
-            </button>
+
+            {singleQuizset.Questions && singleQuizset.Questions.length > 4 ? (
+              <button
+                type="button"
+                onClick={handlePublishQuiz}
+                className="w-full bg-primary text-white text-primary-foreground p-2 rounded-md hover:bg-primary/90 transition-colors disabled:bg-gray-500"
+                disabled={
+                  singleQuizset.Questions && singleQuizset.Questions.length > 4
+                    ? false
+                    : true
+                }
+              >
+                Save Quiz
+              </button>
+            ) : (
+              <ToolTip
+                message={
+                  "You can't publish this quiz, until add at least 5 quesions."
+                }
+                className="-translate-y-3/4"
+              >
+                <button
+                  type="button"
+                  onClick={handlePublishQuiz}
+                  className="w-full bg-primary text-white text-primary-foreground p-2 rounded-md hover:bg-primary/90 transition-colors disabled:bg-gray-500"
+                  disabled={
+                    singleQuizset.Questions &&
+                    singleQuizset.Questions.length > 4
+                      ? false
+                      : true
+                  }
+                >
+                  Save Quiz
+                </button>
+              </ToolTip>
+            )}
           </div>
         </form>
       </div>
