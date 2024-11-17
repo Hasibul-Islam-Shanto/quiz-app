@@ -45,6 +45,7 @@ const ResultRightDetails = ({ quiz, attempt }) => {
                               getCalculatedAnswer(item.id, submittedAnswers) ===
                               option
                             }
+                            readOnly
                           />
                           <span>{option}</span>
                         </div>

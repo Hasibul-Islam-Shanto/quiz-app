@@ -17,9 +17,7 @@ const LoginPage = () => {
   });
 
   const { mutate: signin } = useSignIn(watch("role") === "admin" && true);
-
   const onSubmit = (data) => {
-    console.log(data);
     signin(data);
   };
   return (

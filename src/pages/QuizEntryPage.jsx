@@ -24,7 +24,6 @@ const QuizEntryPage = () => {
     }
   }, [id, quizset]);
 
-  console.log(singleQuizset);
   if (isLoading) {
     return <Loader />;
   }
@@ -76,6 +75,7 @@ const QuizEntryPage = () => {
                 )}
 
                 <QuizEntryQuestions
+                  singleQuizset={singleQuizset}
                   questions={singleQuizset?.Questions ?? []}
                   setIsEditTriggered={setIsEditTriggered}
                   setSelectedId={setSelectedId}

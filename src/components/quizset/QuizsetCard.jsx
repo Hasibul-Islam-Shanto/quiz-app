@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import card1 from "../../assets/backgrounds/3.jpg";
 
 const QuizsetCard = ({ quiz }) => {
-  console.log("🚀 ~ QuizsetCard ~ quiz:", quiz);
 
   return (
     <>

@@ -11,9 +11,9 @@ const Sidebar = () => {
   return (
     <>
       <aside className="w-64 bg-primary p-6 flex flex-col">
-        <div className="mb-10">
+        <Link to="/admin/dashboard" className="mb-10">
           <img src={logoWhite} alt="logo-white" className="h-7" />
-        </div>
+        </Link>
         <nav className="flex-grow">
           <ul className="space-y-2">
             <li>

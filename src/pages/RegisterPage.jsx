@@ -19,8 +19,6 @@ const RegisterPage = () => {
   const { mutate: signup } = useSignUp();
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const submittedDataForUser = {
       full_name: data.full_name,
       email: data.email,

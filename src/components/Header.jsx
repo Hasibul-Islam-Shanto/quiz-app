@@ -25,7 +25,6 @@ const Header = () => {
           <button
             type="button"
             onClick={() => {
-              console.log("Logged Out");
               handleLogout();
             }}
             className="px-4 py-2 rounded hover:bg-primary hover:text-white transition-colors"

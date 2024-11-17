@@ -21,11 +21,9 @@ const useSignIn = (isAdmin) => {
     },
     onSuccess: (data) => {
       console.log("🚀 ~ useSignIn ~ data:", data);
-      window.localStorage.setItem(
-        "accessToken",
-        data?.data?.tokens?.accessToken
-      );
-      window.localStorage.setItem("userInfo", JSON.stringify(data?.data?.user));
+      localStorage.setItem("accessToken", data?.data?.tokens?.accessToken);
+      localStorage.setItem("refreshToken", data?.data?.tokens?.refreshToken);
+      localStorage.setItem("userInfo", JSON.stringify(data?.data?.user));
       setUser(data?.data?.user);
       if (isAdmin && data?.data?.user?.role === "admin") {
         navigate("/admin/dashboard");
