@@ -3,20 +3,15 @@ import useGetQuiz from "../hooks/quiz/useGetQuiz";
 import QuizDetails from "../components/quiz/QuizDetails";
 import QuizQuestion from "../components/quiz/QuizQuestion";
 import Loader from "../components/ui/Loader";
-import { useContext, useState } from "react";
-import { UserContext } from "../context";
+import { useState } from "react";
 import Header from "../components/Header";
 
 const QuizPage = () => {
   const { id } = useParams();
-  const { user } = useContext(UserContext);
   const [answers, setAnswers] = useState({});
 
   const { data: quizDetails, isLoading, isError } = useGetQuiz(id);
 
-  if (!user) {
-    <Navigate to={"/login"} />;
-  }
   if (isLoading) {
     return <Loader />;
   }
@@ -26,6 +21,7 @@ const QuizPage = () => {
   if (quizDetails?.data?.user_attempt?.attempted) {
     return <Navigate to={`/result/${quizDetails?.data?.id}`} />;
   }
+
   return (
     <>
       <div className="bg-[#F5F3FF] min-h-screen p-4">

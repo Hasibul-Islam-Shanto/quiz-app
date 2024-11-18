@@ -10,7 +10,7 @@ const Sidebar = () => {
   const { handleLogout } = useLogout();
   return (
     <>
-      <aside className="w-64 bg-primary p-6 flex flex-col">
+      <aside className="max-w-64 w-full bg-primary p-6 flex flex-col">
         <Link to="/admin/dashboard" className="mb-10">
           <img src={logoWhite} alt="logo-white" className="h-7" />
         </Link>

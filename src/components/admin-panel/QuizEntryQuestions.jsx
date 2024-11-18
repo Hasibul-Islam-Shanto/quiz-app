@@ -12,7 +12,7 @@ const QuizEntryQuestions = ({
 }) => {
   const { setValue, reset } = useFormContext();
   const { mutate: deleteQuestion, isPending } = useDeleteQuestion();
-
+  console.log(questions);
   const handleEditQuestion = (id) => {
     const selectedItem = questions.find((item) => item.id === id);
     setValue("question", selectedItem.question);
@@ -43,7 +43,7 @@ const QuizEntryQuestions = ({
                     <label key={option} className="flex items-center space-x-3">
                       <input
                         type="radio"
-                        checked={item.correctAnswer === option}
+                        checked={item?.correctAnswer === option}
                         readOnly
                         className="form-radio text-buzzr-purple"
                       />
@@ -79,7 +79,9 @@ const QuizEntryQuestions = ({
             </div>
           ))
         ) : (
-          <span>No questions available now.</span>
+          <span className="text-gray-600 text-center text-xl font-semibold">
+            No questions available now.
+          </span>
         )}
       </div>
     </>

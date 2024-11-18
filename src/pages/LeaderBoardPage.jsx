@@ -118,7 +118,9 @@ const LeaderBoardPage = () => {
                       >
                         <div className="flex items-center">
                           <img
-                            src={otherUserAvater}
+                            src={
+                              item.userId === user.id ? avater : otherUserAvater
+                            }
                             alt="SPD Smith"
                             className="object-cover w-10 h-10 rounded-full mr-4"
                           />

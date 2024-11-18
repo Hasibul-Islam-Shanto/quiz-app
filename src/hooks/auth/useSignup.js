@@ -10,12 +10,13 @@ const signUp = async (data) => {
 
 const useSignUp = () => {
   const navigate = useNavigate();
-  const { toastSuccess } = useCustomToast();
+  const { toastSuccess, toastError } = useCustomToast();
 
   return useMutation({
     mutationFn: signUp,
     retry: 0,
     onError: (error) => {
+      toastError(error.response.data.message);
       console.log(error);
     },
     onSuccess: () => {

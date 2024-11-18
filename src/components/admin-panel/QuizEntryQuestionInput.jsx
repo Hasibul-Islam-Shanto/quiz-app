@@ -162,7 +162,7 @@ const QuizEntryQuestionInput = ({
                     : true
                 }
               >
-                Save Quiz
+                Publish Quiz
               </button>
             ) : (
               <ToolTip
@@ -182,7 +182,7 @@ const QuizEntryQuestionInput = ({
                       : true
                   }
                 >
-                  Save Quiz
+                  Publish Quiz
                 </button>
               </ToolTip>
             )}
