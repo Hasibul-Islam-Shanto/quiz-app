@@ -7,6 +7,7 @@ import QuizEntryQuestionInput from "../components/admin-panel/QuizEntryQuestionI
 import { FormProvider, useForm } from "react-hook-form";
 import QuizEntryQuestions from "../components/admin-panel/QuizEntryQuestions";
 import AttemptUser from "../components/admin-panel/AttemptUser";
+import useDeleteQuizset from "../hooks/admin/useDeleteQuizset";
 
 const QuizEntryPage = () => {
   const { id } = useParams();
@@ -15,6 +16,8 @@ const QuizEntryPage = () => {
   const methods = useForm({ mode: "all" });
 
   const { data: quizset, isLoading } = useGetQuizset("/admin/quizzes");
+  const { mutate: deleteQuizset, isLoading: isDeleteLoading } =
+    useDeleteQuizset(id);
 
   const singleQuizset = useMemo(() => {
     const quizsets = quizset && quizset?.filter((item) => item.id === id);
@@ -24,6 +27,15 @@ const QuizEntryPage = () => {
       return [];
     }
   }, [id, quizset]);
+
+  const handleDeleteQuizset = () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this quiz? This action cannot be undone."
+    );
+    if (confirmDelete) {
+      deleteQuizset(id);
+    }
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -35,7 +47,10 @@ const QuizEntryPage = () => {
 
         <main className="md:flex-grow px-4 sm:px-6 lg:px-8 py-8">
           <div>
-            <nav className="text-sm mb-4" aria-label="Breadcrumb">
+            <nav
+              className="text-sm mb-4 flex items-center justify-between"
+              aria-label="Breadcrumb"
+            >
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
                   <Link
@@ -62,6 +77,13 @@ const QuizEntryPage = () => {
                   </Link>
                 </li>
               </ol>
+              <button
+                type="button"
+                className="px-5 py-1 rounded bg-red-500 hover:bg-red-600 text-white"
+                onClick={handleDeleteQuizset}
+              >
+                {isDeleteLoading ? "Deleting..." : " Delete Quiz"}
+              </button>
             </nav>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-12">

@@ -12,7 +12,7 @@ const QuizEntryQuestions = ({
 }) => {
   const { setValue, reset } = useFormContext();
   const { mutate: deleteQuestion, isPending } = useDeleteQuestion();
-  console.log(questions);
+
   const handleEditQuestion = (id) => {
     const selectedItem = questions.find((item) => item.id === id);
     setValue("question", selectedItem.question);

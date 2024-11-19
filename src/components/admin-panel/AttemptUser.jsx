@@ -34,7 +34,7 @@ const AttemptUser = () => {
       })
       .sort((a, b) => b.totalMarks - a.totalMarks);
   }, [attemptsList?.data?.attempts]);
-  console.log(processAttempts);
+
   if (isLoading) {
     return <Loader />;
   }
