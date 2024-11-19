@@ -44,7 +44,7 @@ const ResultLeftDetails = ({ quiz, correctAnswers, submittedAnswers }) => {
 
                 <Link
                   to={`/leaderboard/${quiz?.id}`}
-                  className=" bg-secondary py-3 rounded-md text-lg font-medium underline text-white"
+                  className=" bg-secondary py-3 rounded-md hover:bg-secondary/90 transition-colors text-lg font-medium underline text-white"
                 >
                   View Leaderboard
                 </Link>
