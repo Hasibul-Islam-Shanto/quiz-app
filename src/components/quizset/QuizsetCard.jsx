@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import card1 from "../../assets/backgrounds/3.jpg";
 
 const QuizsetCard = ({ quiz }) => {
-
   return (
     <>
       <Link
@@ -27,7 +26,8 @@ const QuizsetCard = ({ quiz }) => {
         <img
           src={card1}
           alt="JavaScript Hoisting"
-          // className="w-full h-full object-cover rounded mb-4"
+          className="w-full h-full object-cover rounded mb-4"
+          loading="lazy"
         />
       </Link>
     </>
